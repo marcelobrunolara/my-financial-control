@@ -25,4 +25,68 @@ const getTransactions = async (req, res) => {
   }
 };
 
-module.exports = { getTransactions };
+const insertTransactions = async (req, res) => {
+  
+  const transaction = req.body;
+
+  try {
+    const newTransaction = await TransactionModel.create({
+      transaction
+    },
+    {
+      new: true,
+      runValidators: true,
+    });
+
+
+    return res.status(200).send(newTransaction);
+  } catch (error) {
+    return res.status(400).send(error.message);
+  }
+};
+
+const insertTransaction = async (req, res) => {
+  
+  const newTransaction = new TransactionModel(req.body);
+
+  try {
+    await newTransaction.save();
+    return res.status(200).send(newTransaction);
+  } catch (error) {
+    return res.status(400).send(error.message);
+  }
+};
+
+const updateTransaction = async (req, res) => {
+  
+  const transaction = req.body;
+
+  try {
+    console.log(transaction);
+    const newTransaction = await TransactionModel.findOneAndUpdate(
+      { _id: transaction.id },
+      transaction,
+    {
+      new: true,
+      runValidators: true,
+    });
+
+    return res.status(200).send(newTransaction);
+  } catch (error) {
+    return res.status(400).send(error.message);
+  }
+};
+
+const deleteTransaction = async (req, res) => {
+
+  try {
+    const id = req.params.id;
+    const deleted = await TransactionModel.findByIdAndDelete(id);
+
+    return res.status(200).send(deleted);
+  } catch (error) {
+    return res.status(400).send(error.message);
+  }
+};
+
+module.exports = { getTransactions, insertTransaction, updateTransaction, deleteTransaction };
