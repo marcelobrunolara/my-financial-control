@@ -28,7 +28,7 @@ const save = async (model) => {
       yearMonthDay: date,
       id
     };
-      await transactionServices.updateTransaction(
+      return await transactionServices.updateTransaction(
         transaction
       );
   } else {
