@@ -13,6 +13,10 @@ let schema = mongoose.Schema({
     type:String,
     required: true,
   },
+  type: {
+    type: String,
+    required: true,
+  },
   year: {
     type: Number,
     required: true,
