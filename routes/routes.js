@@ -7,4 +7,6 @@ transactionRouter.delete("/:id",services.deleteTransaction)
 transactionRouter.put("/",services.updateTransaction)
 transactionRouter.post("/",services.insertTransaction)
 
+transactionRouter.get("/periods",services.getPeriods)
+
 module.exports = transactionRouter;

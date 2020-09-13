@@ -25,6 +25,22 @@ const getTransactions = async (req, res) => {
   }
 };
 
+const getPeriods = async (req, res) => {
+  try {
+    const transactions = await TransactionModel.find();
+
+    if (!transactions) return res.status(404).send("Transactions not found");
+
+    var yearMonths = transactions.map(c=>c.yearMonth);
+
+    const periods = [...new Set(yearMonths)]
+
+    return res.status(200).send(periods);
+  } catch (error) {
+    return res.status(400).send(error.message);
+  }
+};
+
 const insertTransactions = async (req, res) => {
   
   const transaction = req.body;
@@ -89,4 +105,4 @@ const deleteTransaction = async (req, res) => {
   }
 };
 
-module.exports = { getTransactions, insertTransaction, updateTransaction, deleteTransaction };
+module.exports = { getTransactions, insertTransaction, updateTransaction, deleteTransaction, getPeriods };
