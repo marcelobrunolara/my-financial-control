@@ -65,8 +65,8 @@ export default function CrudModal({
   };
 
   const handleSaving = async () => {
-    const isNew = !currentTransaction._id;
-
+    const isNew = !currentTransaction?._id;
+    const id = currentTransaction?._id;
     const model = {
       isNew,
       category,
@@ -74,6 +74,7 @@ export default function CrudModal({
       isIncome,
       value,
       date,
+      id
     };
 
     let result = await save(model);

@@ -32,6 +32,8 @@ export default function App() {
   useEffect(() => {
     if(!editMode){
       setCurrentTransaction({});
+      if (!currentPeriod) return;
+      getTransactions(currentPeriod);
     }
   }, [editMode]);
 
